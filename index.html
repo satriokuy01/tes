@@ -93,6 +93,7 @@
             border-radius: 8px;
             margin-bottom: 8px;
             border: 1px solid var(--border-color);
+            background-color: var(--border-color);
         }
 
         .photo-caption {
@@ -161,6 +162,7 @@
             box-shadow: 0 0 20px rgba(56, 189, 248, 0.35);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
+            background-color: var(--border-color);
         }
 
         .profile-avatar:hover {
@@ -524,11 +526,11 @@
         <!-- SIDEBAR KIRI: SLOT FOTO SEKOLAH 1 & 2 -->
         <aside class="side-banner reveal">
             <div class="photo-card">
-                <img src="gedung 1.jpg" alt="Gedung Sekolah" onerror="this.src='https://via.placeholder.com/200x160/151c28/38bdf8?text=Foto+Sekolah+1'">
+                <img src="gedung 1.jpg" alt="Gedung Sekolah">
                 <div class="photo-caption">Gedung Utama SMK</div>
             </div>
             <div class="photo-card">
-                <img src="lab1.jpg" alt="Lab TJKT" onerror="this.src='https://via.placeholder.com/200x160/151c28/38bdf8?text=Foto+Lab+TJKT'">
+                <img src="lab1.jpg" alt="Lab TJKT">
                 <div class="photo-caption">Laboratorium TJKT</div>
             </div>
         </aside>
@@ -538,10 +540,9 @@
             
             <!-- Header / Profil Utama -->
             <div class="header-card reveal">
-                <!-- FOTO PROFIL BISA DIKLIK -->
                 <div class="profile-avatar-wrapper">
                     <a href="https://www.youtube.com/watch?v=QDia3e12czc" target="_blank" title="Klik untuk membuka Instagram">
-                        <img src="aaaa.jpg" alt="Muhammad Satrio Putra" class="profile-avatar" onerror="this.src='https://via.placeholder.com/110/151c28/38bdf8?text=Satrio'">
+                        <img src="aaaa.jpg" alt="Muhammad Satrio Putra" class="profile-avatar">
                     </a>
                 </div>
 
@@ -693,11 +694,11 @@
         <!-- SIDEBAR KANAN: SLOT FOTO SEKOLAH 3 & 4 -->
         <aside class="side-banner reveal">
             <div class="photo-card">
-                <img src="kumpul.jpg" alt="Kegiatan Siswa" onerror="this.src='https://via.placeholder.com/200x160/151c28/38bdf8?text=Foto+Kegiatan+1'">
+                <img src="kumpul.jpg" alt="Kegiatan Siswa">
                 <div class="photo-caption">Praktik Pengkabelan</div>
             </div>
             <div class="photo-card">
-                <img src="ekskul.jpg" alt="Foto Bersama" onerror="this.src='https://via.placeholder.com/200x160/151c28/38bdf8?text=Foto+Kegiatan+2'">
+                <img src="ekskul.jpg" alt="Foto Bersama">
                 <div class="photo-caption">Suasana Kelas TJKT</div>
             </div>
         </aside>
@@ -708,27 +709,29 @@
     <script>
         // Efek Glowing Cursor
         const glow = document.getElementById('cursor-glow');
-        window.addEventListener('mousemove', (e) => {
-            glow.style.left = e.clientX + 'px';
-            glow.style.top = e.clientY + 'px';
-        });
+        if (glow && window.innerWidth > 1100) {
+            window.addEventListener('mousemove', (e) => {
+                requestAnimationFrame(() => {
+                    glow.style.left = e.clientX + 'px';
+                    glow.style.top = e.clientY + 'px';
+                });
+            }, { passive: true });
+        }
 
         // Efek Reveal Scroll
         function reveal() {
             const reveals = document.querySelectorAll('.reveal');
+            const windowHeight = window.innerHeight;
             for (let i = 0; i < reveals.length; i++) {
-                const windowHeight = window.innerHeight;
                 const elementTop = reveals[i].getBoundingClientRect().top;
-                const elementVisible = 80;
-                
-                if (elementTop < windowHeight - elementVisible) {
+                if (elementTop < windowHeight - 60) {
                     reveals[i].classList.add('active');
                 }
             }
         }
 
-        window.addEventListener('scroll', reveal);
-        reveal();
+        window.addEventListener('scroll', reveal, { passive: true });
+        document.addEventListener('DOMContentLoaded', reveal);
     </script>
 
 </body>
