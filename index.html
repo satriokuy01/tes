@@ -10,7 +10,7 @@
             --bg-card: #151c28;
             --border-color: #232d3f;
             --primary: #38bdf8;
-            --primary-glow: rgba(56, 189, 248, 0.12);
+            --primary-glow: rgba(56, 189, 248, 0.15);
             --text-main: #f1f5f9;
             --text-sub: #94a3b8;
         }
@@ -27,11 +27,90 @@
             color: var(--text-main);
             line-height: 1.6;
             padding: 40px 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Ambient Glow Cursor Effect */
+        #cursor-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 450px;
+            height: 450px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.12) 0%, rgba(56, 189, 248, 0) 70%);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            transition: transform 0.05s ease-out;
+        }
+
+        /* Main Container Layout dengan Banner Samping */
+        .layout-wrapper {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 220px 1fr 220px;
+            gap: 25px;
+            position: relative;
+            z-index: 1;
         }
 
         .container {
-            max-width: 850px;
-            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Sidebar Side Banners (Foto Kiri & Kanan) */
+        .side-banner {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: sticky;
+            top: 40px;
+            height: fit-content;
+        }
+
+        .photo-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .photo-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .photo-caption {
+            font-size: 0.8rem;
+            color: var(--text-sub);
+            font-weight: 500;
+        }
+
+        /* Scroll Fade-In Effect */
+        .reveal {
+            opacity: 0;
+            transform: translateY(25px);
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* Profile Header */
@@ -44,6 +123,14 @@
             position: relative;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .header-card:hover {
+            border-color: rgba(56, 189, 248, 0.4);
         }
 
         .header-card::before {
@@ -54,6 +141,35 @@
             width: 100%;
             height: 4px;
             background: linear-gradient(90deg, #38bdf8, #818cf8);
+        }
+
+        .profile-avatar-wrapper {
+            flex-shrink: 0;
+        }
+
+        .profile-avatar-wrapper a {
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .profile-avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.35);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .profile-avatar:hover {
+            transform: scale(1.08) rotate(2deg);
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.7);
+        }
+
+        .profile-content {
+            flex-grow: 1;
         }
 
         .badge-status {
@@ -67,7 +183,7 @@
             border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 600;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .status-dot {
@@ -76,25 +192,54 @@
             background-color: #38bdf8;
             border-radius: 50%;
             box-shadow: 0 0 8px #38bdf8;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(1.2); }
+            100% { opacity: 1; transform: scale(1); }
         }
 
         .header-card h1 {
-            font-size: 2.2rem;
+            font-size: 2.1rem;
             color: #ffffff;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             letter-spacing: -0.5px;
         }
 
-        .school-name {
+        .school-info {
             color: var(--primary);
-            font-size: 1.05rem;
+            font-size: 0.95rem;
             font-weight: 500;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .school-link {
+            color: var(--primary);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(56, 189, 248, 0.1);
+            padding: 3px 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            transition: all 0.2s ease;
+        }
+
+        .school-link:hover {
+            background: var(--primary);
+            color: #0b0f17;
         }
 
         .bio {
             color: var(--text-sub);
-            font-size: 0.98rem;
+            font-size: 0.95rem;
             max-width: 650px;
         }
 
@@ -112,6 +257,13 @@
             padding: 18px;
             border-radius: 12px;
             text-align: center;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+            box-shadow: 0 8px 20px rgba(56, 189, 248, 0.15);
         }
 
         .stat-number {
@@ -133,6 +285,11 @@
             padding: 30px;
             margin-bottom: 25px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            transition: border-color 0.3s ease;
+        }
+
+        .section:hover {
+            border-color: rgba(56, 189, 248, 0.25);
         }
 
         .section-title {
@@ -176,6 +333,7 @@
             height: 10px;
             background-color: var(--primary);
             border-radius: 50%;
+            box-shadow: 0 0 10px var(--primary);
         }
 
         .timeline-title {
@@ -195,7 +353,7 @@
             color: var(--text-sub);
         }
 
-        /* Skills Grid - Statis (Biasa) */
+        /* Skills Grid */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -213,12 +371,20 @@
             text-align: center;
             cursor: default;
             user-select: none;
+            transition: all 0.3s ease;
         }
 
-        /* Projects (2 Proyek) */
+        .skill-item:hover {
+            border-color: var(--primary);
+            background-color: var(--primary-glow);
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        /* Projects */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
         }
 
@@ -227,7 +393,7 @@
             border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 22px;
-            transition: border-color 0.3s ease, transform 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -235,7 +401,8 @@
 
         .project-card:hover {
             border-color: var(--primary);
-            transform: translateY(-3px);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 0 15px rgba(56, 189, 248, 0.15);
         }
 
         .project-tag {
@@ -281,7 +448,8 @@
         .social-card:hover {
             border-color: var(--primary);
             background-color: var(--primary-glow);
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(56, 189, 248, 0.2);
         }
 
         .social-info {
@@ -305,6 +473,11 @@
         .social-arrow {
             color: var(--primary);
             font-size: 1.1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .social-card:hover .social-arrow {
+            transform: translateX(4px);
         }
 
         footer {
@@ -314,7 +487,28 @@
             margin-top: 30px;
         }
 
+        /* Responsive untuk Layar HP & Tablet */
+        @media (max-width: 1100px) {
+            .layout-wrapper {
+                grid-template-columns: 1fr;
+            }
+            .side-banner {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                position: static;
+            }
+            #cursor-glow { display: none; }
+        }
+
         @media (max-width: 600px) {
+            .header-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 25px 20px;
+            }
+            .school-info {
+                justify-content: center;
+            }
             .header-card h1 { font-size: 1.7rem; }
             body { padding: 20px 12px; }
         }
@@ -322,147 +516,220 @@
 </head>
 <body>
 
-    <div class="container">
+    <!-- Ambient Cursor Glow Effect Container -->
+    <div id="cursor-glow"></div>
+
+    <div class="layout-wrapper">
         
-        <!-- Header / Profil Utama -->
-        <div class="header-card">
-            <div class="badge-status">
-                <span class="status-dot"></span> Siswa SMK &bull; TJKT
+        <!-- SIDEBAR KIRI: SLOT FOTO SEKOLAH 1 & 2 -->
+        <aside class="side-banner reveal">
+            <div class="photo-card">
+                <img src="gedung 1.jpg" alt="Gedung Sekolah" onerror="this.src='https://via.placeholder.com/200x160/151c28/38bdf8?text=Foto+Sekolah+1'">
+                <div class="photo-caption">Gedung Utama SMK</div>
             </div>
-            <h1>Muhammad Satrio Putra</h1>
-            <div class="school-name">SMK PGRI 1 KOTA TANGERANG</div>
-            <p class="bio">
-                Siswa jurusan Teknik Jaringan Komputer dan Telekomunikasi (TJKT) yang berfokus pada infrastruktur jaringan, konfigurasi perangkat Cisco/Mikrotik, serta Troubleshooting Hardware.
-            </p>
-        </div>
+            <div class="photo-card">
+                <img src="lab1.jpg" alt="Lab TJKT" onerror="this.src='https://via.placeholder.com/200x160/151c28/38bdf8?text=Foto+Lab+TJKT'">
+                <div class="photo-caption">Laboratorium TJKT</div>
+            </div>
+        </aside>
 
-        <!-- Quick Stats -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-number">TJKT</div>
-                <div class="stat-label">Konsentrasi Keahlian</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">2+</div>
-                <div class="stat-label">Proyek Praktikum</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">Cisco & MikroTik</div>
-                <div class="stat-label">Fokus Perangkat</div>
-            </div>
-        </div>
-
-        <!-- Tentang Saya -->
-        <div class="section">
-            <h2 class="section-title">Tentang Saya</h2>
-            <p style="color: var(--text-sub); font-size: 0.95rem; line-height: 1.7;">
-                Saya adalah siswa aktif SMK jurusan TJKT yang memiliki minat tinggi dalam dunia IT, khususnya pada pemeliharaan perangkat keras komputer dan perancangan jaringan lokal (LAN/WLAN). Terbiasa melakukan simulasi topologi jaringan, pengkabelan, hingga troubleshoot hardware secara praktis.
-            </p>
-        </div>
-
-        <!-- Pendidikan & Pengalaman Praktikum -->
-        <div class="section">
-            <h2 class="section-title">Pendidikan & Kegiatan</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-title">SMK PGRI 1 KOTA TANGERANG</div>
-                    <div class="timeline-date">Teknik Jaringan Komputer & Telekomunikasi</div>
-                    <div class="timeline-desc">Mempelajari konsep OSI Layer, IP Address IPv4/IPv6, simulasi routing & switching, serta perakitan dan perawatan hardware komputer.</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-title">Praktik Jaringan & Hardware</div>
-                    <div class="timeline-date">Kegiatan Praktikum Sekolah</div>
-                    <div class="timeline-desc">Melakukan crimping kabel UTP, konfigurasi dasar Router MikroTik, simulasi VLAN Cisco Packet Tracer, dan perbaikan perangkat PC/Laptop.</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Keahlian (Statis, Tidak Melayang) -->
-        <div class="section">
-            <h2 class="section-title">Keahlian & Kompetensi</h2>
-            <div class="skills-grid">
-                <div class="skill-item">Cisco Packet Tracer</div>
-                <div class="skill-item">MikroTik RouterOS</div>
-                <div class="skill-item">Subnetting IPv4 & IPv6</div>
-                <div class="skill-item">Troubleshooting Hardware</div>
-            </div>
-        </div>
-
-        <!-- Proyek (Pas 2 Proyek) -->
-        <div class="section">
-            <h2 class="section-title">Proyek Unggulan</h2>
-            <div class="projects-grid">
-                
-                <!-- Proyek 1 -->
-                <div class="project-card">
-                    <div>
-                        <div class="project-tag">Jaringan & Server</div>
-                        <h3>Simulasi Topologi Network VLAN & Routing</h3>
-                        <p>Merancang dan mengonfigurasi jaringan skala menengah menggunakan Cisco Packet Tracer yang melibatkan inter-VLAN routing, DHCP Server, dan sistem keamanan dasar.</p>
-                    </div>
+        <!-- KONTEN UTAMA (PORTOFOLIO) -->
+        <main class="container">
+            
+            <!-- Header / Profil Utama -->
+            <div class="header-card reveal">
+                <!-- FOTO PROFIL BISA DIKLIK -->
+                <div class="profile-avatar-wrapper">
+                    <a href="https://www.youtube.com/watch?v=QDia3e12czc" target="_blank" title="Klik untuk membuka Instagram">
+                        <img src="aaaa.jpg" alt="Muhammad Satrio Putra" class="profile-avatar" onerror="this.src='https://via.placeholder.com/110/151c28/38bdf8?text=Satrio'">
+                    </a>
                 </div>
 
-                <!-- Proyek 2 -->
-                <div class="project-card">
-                    <div>
-                        <div class="project-tag">Web Development</div>
-                        <h3>Website Portofolio Statis Responsive</h3>
-                        <p>Membangun halaman web portofolio pribadi yang ringan dan responsif menggunakan HTML & CSS murni sebagai bukti kompetensi mata pelajaran produktif.</p>
+                <div class="profile-content">
+                    <div class="badge-status">
+                        <span class="status-dot"></span> Siswa SMK &bull; TJKT
+                    </div>
+                    <h1>Muhammad Satrio Putra</h1>
+                    
+                    <!-- Info Sekolah + Link Ke Web Sekolah -->
+                    <div class="school-info">
+                        <a href="https://www.pgri.sch.id/" target="_blank" class="school-link" title="Buka Website Resmi Sekolah">
+                            🏫 SMK PGRI 1 KOTA TANGERANG ↗
+                        </a>
+                        <span>•</span>
+                        <span>📚 Kelas XI TJKT 1</span>
+                        <span>•</span>
+                        <span>📍 Kota Tangerang</span>
+                    </div>
+
+                    <p class="bio">
+                        Siswa jurusan Teknik Jaringan Komputer dan Telekomunikasi (TJKT) yang berfokus pada infrastruktur jaringan, konfigurasi perangkat Cisco/Mikrotik, serta Troubleshooting Hardware.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="stats-grid reveal">
+                <div class="stat-card">
+                    <div class="stat-number">XI TJKT 1</div>
+                    <div class="stat-label">Kelas & Rombel</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">2+</div>
+                    <div class="stat-label">Proyek Praktikum</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">Cisco & MikroTik</div>
+                    <div class="stat-label">Fokus Perangkat</div>
+                </div>
+            </div>
+
+            <!-- Tentang Saya -->
+            <div class="section reveal">
+                <h2 class="section-title">Tentang Saya</h2>
+                <p style="color: var(--text-sub); font-size: 0.95rem; line-height: 1.7;">
+                    Saya adalah siswa aktif SMK jurusan TJKT berdomisili di Kota Tangerang. Saya memiliki minat tinggi dalam dunia IT, khususnya pada pemeliharaan perangkat keras komputer dan perancangan jaringan lokal (LAN/WLAN). Terbiasa melakukan simulasi topologi jaringan, pengkabelan, hingga troubleshoot hardware secara praktis.
+                </p>
+            </div>
+
+            <!-- Pendidikan & Pengalaman Praktikum -->
+            <div class="section reveal">
+                <h2 class="section-title">Pendidikan & Kegiatan</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-title">SMK PGRI 1 KOTA TANGERANG</div>
+                        <div class="timeline-date">Teknik Jaringan Komputer & Telekomunikasi (XI TJKT 1)</div>
+                        <div class="timeline-desc">Mempelajari konsep OSI Layer, IP Address IPv4/IPv6, simulasi routing & switching, serta perakitan dan perawatan hardware komputer.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-title">Praktik Jaringan & Hardware</div>
+                        <div class="timeline-date">Kegiatan Praktikum Sekolah</div>
+                        <div class="timeline-desc">Melakukan crimping kabel UTP, konfigurasi dasar Router MikroTik, simulasi VLAN Cisco Packet Tracer, dan perbaikan perangkat PC/Laptop.</div>
                     </div>
                 </div>
-
             </div>
-        </div>
 
-        <!-- Kontak & Media Sosial -->
-        <div class="section">
-            <h2 class="section-title">Temukan Saya</h2>
-            <div class="contact-grid">
-                
-                <!-- Email (Buka Gmail di Browser) -->
-                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=satriokuy01@gmail.com" target="_blank" class="social-card">
-                    <div class="social-info">
-                        <span class="social-platform">Email</span>
-                        <span class="social-username">satriokuy01@gmail.com</span>
-                    </div>
-                    <span class="social-arrow">&rarr;</span>
-                </a>
-
-                <!-- GitHub -->
-                <a href="https://github.com/satriokuy01" target="_blank" class="social-card">
-                    <div class="social-info">
-                        <span class="social-platform">GitHub</span>
-                        <span class="social-username">@satriokuy01</span>
-                    </div>
-                    <span class="social-arrow">&rarr;</span>
-                </a>
-
-                <!-- Instagram -->
-                <a href="https://instagram.com/msatrioputra" target="_blank" class="social-card">
-                    <div class="social-info">
-                        <span class="social-platform">Instagram</span>
-                        <span class="social-username">@msatrioputra</span>
-                    </div>
-                    <span class="social-arrow">&rarr;</span>
-                </a>
-
-                <!-- Discord -->
-                <a href="https://discord.com/users/satr10putra" target="_blank" class="social-card">
-                    <div class="social-info">
-                        <span class="social-platform">Discord</span>
-                        <span class="social-username">@satr10putra</span>
-                    </div>
-                    <span class="social-arrow">&rarr;</span>
-                </a>
-
+            <!-- Keahlian -->
+            <div class="section reveal">
+                <h2 class="section-title">Keahlian & Kompetensi</h2>
+                <div class="skills-grid">
+                    <div class="skill-item">Cisco Packet Tracer</div>
+                    <div class="skill-item">MikroTik RouterOS</div>
+                    <div class="skill-item">Subnetting IPv4 & IPv6</div>
+                    <div class="skill-item">Troubleshooting Hardware</div>
+                </div>
             </div>
-        </div>
 
-        <footer>
-            &copy; 2026 Muhammad Satrio Putra. Dibuat dengan Gemini Edyannn
-        </footer>
+            <!-- Proyek -->
+            <div class="section reveal">
+                <h2 class="section-title">Proyek Unggulan</h2>
+                <div class="projects-grid">
+                    
+                    <div class="project-card">
+                        <div>
+                            <div class="project-tag">Jaringan & Server</div>
+                            <h3>Simulasi Topologi Network VLAN & Routing</h3>
+                            <p>Merancang dan mengonfigurasi jaringan skala menengah menggunakan Cisco Packet Tracer yang melibatkan inter-VLAN routing, DHCP Server, dan sistem keamanan dasar.</p>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div>
+                            <div class="project-tag">Web Development</div>
+                            <h3>Website Portofolio Statis Responsive</h3>
+                            <p>Membangun halaman web portofolio pribadi yang ringan dan responsif menggunakan HTML & CSS murni sebagai bukti kompetensi mata pelajaran produktif.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Kontak & Media Sosial -->
+            <div class="section reveal">
+                <h2 class="section-title">Temukan Saya</h2>
+                <div class="contact-grid">
+                    
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=satriokuy01@gmail.com" target="_blank" class="social-card">
+                        <div class="social-info">
+                            <span class="social-platform">Email</span>
+                            <span class="social-username">satriokuy01@gmail.com</span>
+                        </div>
+                        <span class="social-arrow">&rarr;</span>
+                    </a>
+
+                    <a href="https://github.com/satriokuy01" target="_blank" class="social-card">
+                        <div class="social-info">
+                            <span class="social-platform">GitHub</span>
+                            <span class="social-username">@satriokuy01</span>
+                        </div>
+                        <span class="social-arrow">&rarr;</span>
+                    </a>
+
+                    <a href="https://instagram.com/msatrioputra" target="_blank" class="social-card">
+                        <div class="social-info">
+                            <span class="social-platform">Instagram</span>
+                            <span class="social-username">@msatrioputra</span>
+                        </div>
+                        <span class="social-arrow">&rarr;</span>
+                    </a>
+
+                    <a href="https://discord.com/users/satr10putra" target="_blank" class="social-card">
+                        <div class="social-info">
+                            <span class="social-platform">Discord</span>
+                            <span class="social-username">@satr10putra</span>
+                        </div>
+                        <span class="social-arrow">&rarr;</span>
+                    </a>
+
+                </div>
+            </div>
+
+            <footer>
+                &copy; 2026 Muhammad Satrio Putra. Dibuat dengan Gemini Edyannn
+            </footer>
+
+        </main>
+
+        <!-- SIDEBAR KANAN: SLOT FOTO SEKOLAH 3 & 4 -->
+        <aside class="side-banner reveal">
+            <div class="photo-card">
+                <img src="kumpul.jpg" alt="Kegiatan Siswa" onerror="this.src='https://via.placeholder.com/200x160/151c28/38bdf8?text=Foto+Kegiatan+1'">
+                <div class="photo-caption">Praktik Pengkabelan</div>
+            </div>
+            <div class="photo-card">
+                <img src="ekskul.jpg" alt="Foto Bersama" onerror="this.src='https://via.placeholder.com/200x160/151c28/38bdf8?text=Foto+Kegiatan+2'">
+                <div class="photo-caption">Suasana Kelas TJKT</div>
+            </div>
+        </aside>
 
     </div>
+
+    <!-- Script JavaScript untuk Efek Kursor & Scroll Reveal -->
+    <script>
+        // Efek Glowing Cursor
+        const glow = document.getElementById('cursor-glow');
+        window.addEventListener('mousemove', (e) => {
+            glow.style.left = e.clientX + 'px';
+            glow.style.top = e.clientY + 'px';
+        });
+
+        // Efek Reveal Scroll
+        function reveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveals[i].getBoundingClientRect().top;
+                const elementVisible = 80;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+
+        window.addEventListener('scroll', reveal);
+        reveal();
+    </script>
 
 </body>
 </html>
