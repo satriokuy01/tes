@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio - Muhammad Satrio Putra</title>
+    <style>
+        :root {
+            --bg-body: #0b0f17;
+            --bg-card: #151c28;
+            --border-color: #232d3f;
+            --primary: #38bdf8;
+            --primary-glow: rgba(56, 189, 248, 0.12);
+            --text-main: #f1f5f9;
+            --text-sub: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        /* Profile Header */
+        .header-card {
+            background: linear-gradient(135deg, #151c28 0%, #1a2436 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 35px;
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .header-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #38bdf8, #818cf8);
+        }
+
+        .badge-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: var(--primary-glow);
+            color: var(--primary);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #38bdf8;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #38bdf8;
+        }
+
+        .header-card h1 {
+            font-size: 2.2rem;
+            color: #ffffff;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+        }
+
+        .school-name {
+            color: var(--primary);
+            font-size: 1.05rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .bio {
+            color: var(--text-sub);
+            font-size: 0.98rem;
+            max-width: 650px;
+        }
+
+        /* Stats Bar */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 18px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 0.82rem;
+            color: var(--text-sub);
+        }
+
+        /* Section Layout */
+        .section {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            color: #ffffff;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 18px;
+            background-color: var(--primary);
+            border-radius: 4px;
+        }
+
+        /* Timeline / Education */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            border-left: 2px solid var(--border-color);
+            padding-left: 20px;
+            margin-left: 5px;
+        }
+
+        .timeline-item {
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -26px;
+            top: 6px;
+            width: 10px;
+            height: 10px;
+            background-color: var(--primary);
+            border-radius: 50%;
+        }
+
+        .timeline-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .timeline-date {
+            font-size: 0.8rem;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+
+        .timeline-desc {
+            font-size: 0.9rem;
+            color: var(--text-sub);
+        }
+
+        /* Skills Grid - Statis (Biasa) */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px;
+        }
+
+        .skill-item {
+            background-color: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: #cbd5e1;
+            font-weight: 500;
+            text-align: center;
+            cursor: default;
+            user-select: none;
+        }
+
+        /* Projects (2 Proyek) */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .project-card {
+            background-color: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 22px;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .project-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .project-tag {
+            font-size: 0.75rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .project-card h3 {
+            font-size: 1.15rem;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .project-card p {
+            color: var(--text-sub);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Social / Contact Grid */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .social-card {
+            background-color: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            padding: 16px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+        }
+
+        .social-card:hover {
+            border-color: var(--primary);
+            background-color: var(--primary-glow);
+            transform: translateY(-2px);
+        }
+
+        .social-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .social-platform {
+            font-size: 0.8rem;
+            color: var(--text-sub);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .social-username {
+            font-size: 0.95rem;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .social-arrow {
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        footer {
+            text-align: center;
+            color: var(--text-sub);
+            font-size: 0.85rem;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 600px) {
+            .header-card h1 { font-size: 1.7rem; }
+            body { padding: 20px 12px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- Header / Profil Utama -->
+        <div class="header-card">
+            <div class="badge-status">
+                <span class="status-dot"></span> Siswa SMK &bull; TJKT
+            </div>
+            <h1>Muhammad Satrio Putra</h1>
+            <div class="school-name">SMK PGRI 1 KOTA TANGERANG</div>
+            <p class="bio">
+                Siswa jurusan Teknik Jaringan Komputer dan Telekomunikasi (TJKT) yang berfokus pada infrastruktur jaringan, konfigurasi perangkat Cisco/Mikrotik, serta Troubleshooting Hardware.
+            </p>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">TJKT</div>
+                <div class="stat-label">Konsentrasi Keahlian</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">2+</div>
+                <div class="stat-label">Proyek Praktikum</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">Cisco & MikroTik</div>
+                <div class="stat-label">Fokus Perangkat</div>
+            </div>
+        </div>
+
+        <!-- Tentang Saya -->
+        <div class="section">
+            <h2 class="section-title">Tentang Saya</h2>
+            <p style="color: var(--text-sub); font-size: 0.95rem; line-height: 1.7;">
+                Saya adalah siswa aktif SMK jurusan TJKT yang memiliki minat tinggi dalam dunia IT, khususnya pada pemeliharaan perangkat keras komputer dan perancangan jaringan lokal (LAN/WLAN). Terbiasa melakukan simulasi topologi jaringan, pengkabelan, hingga troubleshoot hardware secara praktis.
+            </p>
+        </div>
+
+        <!-- Pendidikan & Pengalaman Praktikum -->
+        <div class="section">
+            <h2 class="section-title">Pendidikan & Kegiatan</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-title">SMK PGRI 1 KOTA TANGERANG</div>
+                    <div class="timeline-date">Teknik Jaringan Komputer & Telekomunikasi</div>
+                    <div class="timeline-desc">Mempelajari konsep OSI Layer, IP Address IPv4/IPv6, simulasi routing & switching, serta perakitan dan perawatan hardware komputer.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-title">Praktik Jaringan & Hardware</div>
+                    <div class="timeline-date">Kegiatan Praktikum Sekolah</div>
+                    <div class="timeline-desc">Melakukan crimping kabel UTP, konfigurasi dasar Router MikroTik, simulasi VLAN Cisco Packet Tracer, dan perbaikan perangkat PC/Laptop.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Keahlian (Statis, Tidak Melayang) -->
+        <div class="section">
+            <h2 class="section-title">Keahlian & Kompetensi</h2>
+            <div class="skills-grid">
+                <div class="skill-item">Cisco Packet Tracer</div>
+                <div class="skill-item">MikroTik RouterOS</div>
+                <div class="skill-item">Subnetting IPv4 & IPv6</div>
+                <div class="skill-item">Troubleshooting Hardware</div>
+            </div>
+        </div>
+
+        <!-- Proyek (Pas 2 Proyek) -->
+        <div class="section">
+            <h2 class="section-title">Proyek Unggulan</h2>
+            <div class="projects-grid">
+                
+                <!-- Proyek 1 -->
+                <div class="project-card">
+                    <div>
+                        <div class="project-tag">Jaringan & Server</div>
+                        <h3>Simulasi Topologi Network VLAN & Routing</h3>
+                        <p>Merancang dan mengonfigurasi jaringan skala menengah menggunakan Cisco Packet Tracer yang melibatkan inter-VLAN routing, DHCP Server, dan sistem keamanan dasar.</p>
+                    </div>
+                </div>
+
+                <!-- Proyek 2 -->
+                <div class="project-card">
+                    <div>
+                        <div class="project-tag">Web Development</div>
+                        <h3>Website Portofolio Statis Responsive</h3>
+                        <p>Membangun halaman web portofolio pribadi yang ringan dan responsif menggunakan HTML & CSS murni sebagai bukti kompetensi mata pelajaran produktif.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Kontak & Media Sosial -->
+        <div class="section">
+            <h2 class="section-title">Temukan Saya</h2>
+            <div class="contact-grid">
+                
+                <!-- Email (Buka Gmail di Browser) -->
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=satriokuy01@gmail.com" target="_blank" class="social-card">
+                    <div class="social-info">
+                        <span class="social-platform">Email</span>
+                        <span class="social-username">satriokuy01@gmail.com</span>
+                    </div>
+                    <span class="social-arrow">&rarr;</span>
+                </a>
+
+                <!-- GitHub -->
+                <a href="https://github.com/satriokuy01" target="_blank" class="social-card">
+                    <div class="social-info">
+                        <span class="social-platform">GitHub</span>
+                        <span class="social-username">@satriokuy01</span>
+                    </div>
+                    <span class="social-arrow">&rarr;</span>
+                </a>
+
+                <!-- Instagram -->
+                <a href="https://instagram.com/msatrioputra" target="_blank" class="social-card">
+                    <div class="social-info">
+                        <span class="social-platform">Instagram</span>
+                        <span class="social-username">@msatrioputra</span>
+                    </div>
+                    <span class="social-arrow">&rarr;</span>
+                </a>
+
+                <!-- Discord -->
+                <a href="https://discord.com/users/satr10putra" target="_blank" class="social-card">
+                    <div class="social-info">
+                        <span class="social-platform">Discord</span>
+                        <span class="social-username">@satr10putra</span>
+                    </div>
+                    <span class="social-arrow">&rarr;</span>
+                </a>
+
+            </div>
+        </div>
+
+        <footer>
+            &copy; 2026 Muhammad Satrio Putra. Dibuat dengan Gemini Edyannn
+        </footer>
+
+    </div>
+
+</body>
+</html>
