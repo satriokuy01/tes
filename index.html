@@ -46,7 +46,7 @@
             transition: transform 0.05s ease-out;
         }
 
-        /* Main Container Layout dengan Banner Samping */
+        /* Layout Wrapper */
         .layout-wrapper {
             max-width: 1300px;
             margin: 0 auto;
@@ -61,7 +61,7 @@
             width: 100%;
         }
 
-        /* Sidebar Side Banners (Foto Kiri & Kanan) */
+        /* Side Banners */
         .side-banner {
             display: flex;
             flex-direction: column;
@@ -94,6 +94,7 @@
             margin-bottom: 8px;
             border: 1px solid var(--border-color);
             background-color: var(--border-color);
+            display: block;
         }
 
         .photo-caption {
@@ -102,7 +103,7 @@
             font-weight: 500;
         }
 
-        /* Scroll Fade-In Effect */
+        /* Scroll Reveal */
         .reveal {
             opacity: 0;
             transform: translateY(25px);
@@ -114,7 +115,7 @@
             transform: translateY(0);
         }
 
-        /* Profile Header */
+        /* Header Card */
         .header-card {
             background: linear-gradient(135deg, #151c28 0%, #1a2436 100%);
             border: 1px solid var(--border-color);
@@ -163,6 +164,7 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
             background-color: var(--border-color);
+            display: block;
         }
 
         .profile-avatar:hover {
@@ -245,7 +247,7 @@
             max-width: 650px;
         }
 
-        /* Stats Bar */
+        /* Stats Grid */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -279,7 +281,7 @@
             color: var(--text-sub);
         }
 
-        /* Section Layout */
+        /* Sections */
         .section {
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -312,7 +314,7 @@
             border-radius: 4px;
         }
 
-        /* Timeline / Education */
+        /* Timeline */
         .timeline {
             display: flex;
             flex-direction: column;
@@ -355,7 +357,7 @@
             color: var(--text-sub);
         }
 
-        /* Skills Grid */
+        /* Skills */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -428,7 +430,7 @@
             line-height: 1.5;
         }
 
-        /* Social / Contact Grid */
+        /* Contact */
         .contact-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -489,7 +491,7 @@
             margin-top: 30px;
         }
 
-        /* Responsive untuk Layar HP & Tablet */
+        /* Responsive */
         @media (max-width: 1100px) {
             .layout-wrapper {
                 grid-template-columns: 1fr;
@@ -518,31 +520,30 @@
 </head>
 <body>
 
-    <!-- Ambient Cursor Glow Effect Container -->
     <div id="cursor-glow"></div>
 
     <div class="layout-wrapper">
         
-        <!-- SIDEBAR KIRI: SLOT FOTO SEKOLAH 1 & 2 -->
+        <!-- SIDEBAR KIRI -->
         <aside class="side-banner reveal">
             <div class="photo-card">
-                <img src="gedung 1.jpg" alt="Gedung Sekolah">
+                <img src="gedung 1.jpg" alt="Gedung Sekolah" onerror="showFallback(this, 'Gedung Utama')">
                 <div class="photo-caption">Gedung Utama SMK</div>
             </div>
             <div class="photo-card">
-                <img src="lab1.jpg" alt="Lab TJKT">
+                <img src="lab1.jpg" alt="Lab TJKT" onerror="showFallback(this, 'Laboratorium')">
                 <div class="photo-caption">Laboratorium TJKT</div>
             </div>
         </aside>
 
-        <!-- KONTEN UTAMA (PORTOFOLIO) -->
+        <!-- KONTEN UTAMA -->
         <main class="container">
             
-            <!-- Header / Profil Utama -->
+            <!-- Header Profil -->
             <div class="header-card reveal">
                 <div class="profile-avatar-wrapper">
                     <a href="https://www.youtube.com/watch?v=QDia3e12czc" target="_blank" title="Klik untuk membuka Instagram">
-                        <img src="aaaa.jpg" alt="Muhammad Satrio Putra" class="profile-avatar">
+                        <img src="aaaa.jpg" alt="Muhammad Satrio Putra" class="profile-avatar" onerror="showFallback(this, 'MSP', true)">
                     </a>
                 </div>
 
@@ -552,7 +553,6 @@
                     </div>
                     <h1>Muhammad Satrio Putra</h1>
                     
-                    <!-- Info Sekolah + Link Ke Web Sekolah -->
                     <div class="school-info">
                         <a href="https://www.pgri.sch.id/" target="_blank" class="school-link" title="Buka Website Resmi Sekolah">
                             🏫 SMK PGRI 1 KOTA TANGERANG ↗
@@ -569,7 +569,7 @@
                 </div>
             </div>
 
-            <!-- Quick Stats -->
+            <!-- Stats -->
             <div class="stats-grid reveal">
                 <div class="stat-card">
                     <div class="stat-number">XI TJKT 1</div>
@@ -593,7 +593,7 @@
                 </p>
             </div>
 
-            <!-- Pendidikan & Pengalaman Praktikum -->
+            <!-- Pendidikan & Pengalaman -->
             <div class="section reveal">
                 <h2 class="section-title">Pendidikan & Kegiatan</h2>
                 <div class="timeline">
@@ -625,7 +625,6 @@
             <div class="section reveal">
                 <h2 class="section-title">Proyek Unggulan</h2>
                 <div class="projects-grid">
-                    
                     <div class="project-card">
                         <div>
                             <div class="project-tag">Jaringan & Server</div>
@@ -641,15 +640,13 @@
                             <p>Membangun halaman web portofolio pribadi yang ringan dan responsif menggunakan HTML & CSS murni sebagai bukti kompetensi mata pelajaran produktif.</p>
                         </div>
                     </div>
-
                 </div>
             </div>
 
-            <!-- Kontak & Media Sosial -->
+            <!-- Kontak -->
             <div class="section reveal">
                 <h2 class="section-title">Temukan Saya</h2>
                 <div class="contact-grid">
-                    
                     <a href="https://mail.google.com/mail/?view=cm&fs=1&to=satriokuy01@gmail.com" target="_blank" class="social-card">
                         <div class="social-info">
                             <span class="social-platform">Email</span>
@@ -681,32 +678,42 @@
                         </div>
                         <span class="social-arrow">&rarr;</span>
                     </a>
-
                 </div>
             </div>
 
             <footer>
-                &copy; 2026 Muhammad Satrio Putra. Dibuat dengan Gemini Edyannn
+                &copy; 2026 Muhammad Satrio Putra. Dibuat dengan Gemini
             </footer>
 
         </main>
 
-        <!-- SIDEBAR KANAN: SLOT FOTO SEKOLAH 3 & 4 -->
+        <!-- SIDEBAR KANAN -->
         <aside class="side-banner reveal">
             <div class="photo-card">
-                <img src="kumpul.jpg" alt="Kegiatan Siswa">
+                <img src="kumpul.jpg" alt="Kegiatan Siswa" onerror="showFallback(this, 'Praktik')">
                 <div class="photo-caption">Praktik Pengkabelan</div>
             </div>
             <div class="photo-card">
-                <img src="ekskul.jpg" alt="Foto Bersama">
+                <img src="ekskul.jpg" alt="Foto Bersama" onerror="showFallback(this, 'Kelas TJKT')">
                 <div class="photo-caption">Suasana Kelas TJKT</div>
             </div>
         </aside>
 
     </div>
 
-    <!-- Script JavaScript untuk Efek Kursor & Scroll Reveal -->
     <script>
+        // Fallback generator jika foto lokal belum disiapkan
+        function showFallback(img, text, isAvatar = false) {
+            img.onerror = null; 
+            const bg = '%231e293b';
+            const color = '%2338bdf8';
+            if(isAvatar) {
+                img.src = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="110" height="110" viewBox="0 0 110 110"><rect width="100%" height="100%" fill="${bg}"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="${color}" font-family="sans-serif" font-size="32" font-weight="bold">${text}</text></svg>`;
+            } else {
+                img.src = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="160" viewBox="0 0 300 160"><rect width="100%" height="100%" fill="${bg}"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="${color}" font-family="sans-serif" font-size="16">${text}</text></svg>`;
+            }
+        }
+
         // Efek Glowing Cursor
         const glow = document.getElementById('cursor-glow');
         if (glow && window.innerWidth > 1100) {
@@ -718,7 +725,7 @@
             }, { passive: true });
         }
 
-        // Efek Reveal Scroll
+        // Efek Scroll Reveal
         function reveal() {
             const reveals = document.querySelectorAll('.reveal');
             const windowHeight = window.innerHeight;
